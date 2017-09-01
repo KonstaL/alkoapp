@@ -1,0 +1,406 @@
+html, body {
+    min-height: 100%;
+    width: 100%;
+}
+
+#carousel {
+    background: url(https://s3.eu-central-1.amazonaws.com/konstalehtinen/images/eaters-collective-109606-min.jpg);
+    background-size: cover;
+	background-position: center;
+    height: 500px;
+	margin-top: -20px;
+}
+.container {
+    padding: 0 20px;
+
+}
+body {
+    background-color: #e5e5e5;
+}
+
+.ominaisuus {
+    font-weight: bold;
+    width: 600px;
+    display: inline;
+}
+}
+
+.data {
+    display: inline;
+}
+
+table {
+    width: 100%;
+}
+
+td img {
+   height: 100px;
+}
+
+#sidebar {
+    background-color: white;
+    border-radius: 10px;
+}
+
+
+.width-container {
+    max-width: 1140px;
+    padding: 0 20px;
+}
+
+.catalog-img {
+    max-height: 220px;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+    margin: 5px auto;
+    padding: 5px;
+
+}
+
+.catalog-item {
+    background-color: white;
+    margin: 4px 2px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    min-height: 360px;
+}
+
+.catalog-text-content {
+    min-height:130px;
+	padding: 5px 25px;
+	position: relative;
+}
+.catalog-title {
+	margin-bottom: 30px;
+	font-size: 1.2em;
+	font-weight: bold;
+	text-align: center;
+	position: relative;
+}
+/*.catalog-title::after {
+	content: "";
+	position:relative;
+	top: -10px;
+	border-bottom: 3px solid green;
+	  display: inline-block;
+    height: 1em;
+    width: 100%;
+	transform: scaleX(0.3);
+}*/
+
+.catalog-price {
+	position: absolute;
+	bottom: 0px;
+	display: inline-block;
+	font-weight: bold;
+	text-align: left;
+}
+
+.catalog-proof {
+	position: absolute;
+	right: 20px;
+	bottom: 0px;
+	font-weight: bold;
+	text-align: right;
+}
+.navbar-default {
+	background-color: #4b4b4b;
+	border: none;
+}
+.navbar-default .btn-link {
+    color: white;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: white;
+}
+.text-big{
+	font-size: 2em;
+}
+
+.comments {
+    background-color: #f2f2f2;
+    min-height: 500px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 30px;
+}
+
+.product-img {
+    display: block;
+    margin: auto;
+    max-height: 500px;
+    border-radius: 10px 10px 0 0;
+    max-width: 100%;
+    object-fit: contain;
+}
+.product-content {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px 10px;
+    max-height: 600px;
+
+}
+@media  (max-width: 768px) {
+    .product-content {
+        max-height: none;
+    }
+    /*.dropdown-menu li::after {*/
+        /*content: "";*/
+        /*position: relative;*/
+        /*top: -20px;*/
+        /*border-bottom: 1px solid lightcyan;*/
+        /*display: inline-block;*/
+        /*height: 2px;*/
+        /*width: 100%;*/
+        /*transform: scaleX(0.35);*/
+    /*}*/
+
+}
+
+.nav {
+
+}
+
+
+.dropdown-menu {
+    background: #4b4b4b;
+    text-align: center;
+}
+
+.dropdown-menu li a {
+    color: white !important;
+}
+
+@media  (max-width: 768px) {
+     .sub-menu {
+        text-align: center;
+        background: #f3f3f3;
+
+    }
+    .nav li {
+        text-align: center;
+    }
+    .dropdown-toggle{
+        width: 100%;
+
+    }
+    .dropdown li{
+
+    }
+
+}
+
+.highlight-bg {
+    background-color: white;
+    border-radius: 10px;
+}
+
+.alert {
+    margin-top: -10px;
+    margin-bottom: 30px;
+}
+
+h2 {
+    margin: 10px 0;
+}
+
+.comment-row {
+    background-color: white;
+    border-radius: 5px;
+    min-height: 40px;
+    margin: 10px 0;
+    vertical-align: text-top;
+    padding: 5px;
+}
+
+.comment-text {
+    display: inline;
+
+}
+
+.comment-row .comment-username {
+    margin: 0;
+    padding-bottom: 3px;
+    text-align: center;
+    font-weight: bold;
+}
+.comment-img {
+    margin: auto;
+    display: block;
+    max-width: 80px;
+    max-height: 80px;
+}
+table {
+    display: inline-table;
+    text-align: center;
+    margin-bottom: 5px;
+
+}
+th {
+   color:white;
+    background-color: #4b4b4b;
+    text-align: center;
+}
+tr{
+    background-color: lightgray;
+}
+tr:nth-child(2n+2) {
+    background-color: white;
+}
+
+#comment-form {
+    margin-top: 40px;
+}
+
+.juoma-category {
+    background-color: white;
+    /*margin: 4px 2px;*/
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+    flex-wrap: wrap;
+}
+.row > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}
+
+.jumbotron {
+    text-align: center;
+    margin-top: 30px;
+    background: rgba(255,255,255,0.9);
+}
+
+#loadMoreButton {
+    margin: 5px;
+}
+#ajaxReplace {
+    margin-bottom: 20px;
+}
+
+.lessWhiteSpace {
+    padding: 4px 4px;
+}
+
+.row .form-group {
+    width: 150px;
+    margin-right: 10px;
+}
+
+form .form-group {
+    width: 100% !important; /* Fix this sometime, used to ensure that login page looks right */
+    margin-right: 0;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    margin-top: 150px;
+    background-color: #616161;
+    height: 100px;
+    color: rgb(238, 238, 238);
+    font-size: 2.5em;
+}
+
+.grid {
+    position: relative;
+
+}
+
+.navbar {
+    border-radius: 0px !important;
+}
+
+
+.category-item {
+    padding: 0;
+    background-color: white;
+    margin: 0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    min-height: 100px;
+    text-align:center;
+}
+
+.vcenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.category-item a {
+    font-size: 20px;
+    color: black;
+}
+
+.nav button {
+    margin: 0;
+    border: none;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.nav a:hover, .nav button:hover {
+    background-color: #9e9e9e !important;
+    color: black;
+}
+
+
+#hotfix {
+    margin: auto;
+    width: 100%;
+    max-width: 1160px !important;
+}
+
+
+#comment-form .form-group textarea {
+
+    resize: none;
+}
+
+.sub-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    border: none;
+    background-color:  #767676;
+
+}
+
+.sub-menu li {
+    /*padding: 4px;*/
+    /*width: 100%;*/
+    background: #767676;
+}
+
+.sub-menu li a {
+    color: white;
+    padding: 5px !important;
+    margin: 0 !important;
+}
+@media  (max-width: 768px) {
+    .sub-menu {
+        position:static;
+    }
+    #pageTitle {
+        margin: auto;
+        padding: 20px;
+    }
+}
+
+.disabled {
+    color: #5c6167 !important;
+}
+

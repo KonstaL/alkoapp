@@ -1,0 +1,41 @@
+<!--<div class="row">-->
+    <!--<h3 class="text-center"><%=searchMessage%></h3>-->
+<!--</div>-->
+
+<div class="row">
+
+    <% foundDrink.forEach(function(juoma) {   %>
+
+    <div class="col-sm-3 col-xs-6 lessWhiteSpace ">
+        <div class="juoma-category">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <% if (juoma.img) { %>
+                                <img class="catalog-img" src="<%=juoma.img%>">
+
+                        <%} else {%>
+                                <img class="catalog-img" src="https://images.alko.fi/images/t_medium,f_auto/cdn/<%=juoma.numero%>/<%=juoma.nimi.replace(/ /g,"-")%>.jpg">
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 catalog-text-content">
+                        <p class="catalog-title"><a href="/juomat/viskit/<%=juoma._id%>"><%= juoma.nimi %></a></p>
+                        <p class="catalog-price"> <span class="text-big"><%= (juoma.hinta/100).toFixed(2) %></span>e</p>
+                        <p class="catalog-proof"><%= juoma['alkoholi-%'] %>% </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      <!--  } -->
+    <% });  %>
+
+</div>
+<!-- For passing data to hide load more button -->
+<% if(allLoaded) { %>
+    <span id="buttonHide" data-hide="true"></span>
+<%}%>

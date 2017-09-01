@@ -1,0 +1,7 @@
+.idea/
+node_modules/
+secret/
+
+
+
+#Unhide secret only when uploading to heroku

@@ -1,0 +1,85 @@
+<% include ../partials/header.ejs %>
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4 col-xs-8 col-xs-offset-2">
+        <form id="updateForm" action="/suggestions" enctype='multipart/form-data' method="POST">
+            <legend>
+                <h1 class="text-center">Ehdota muokkausta juomaan <%=foundDrink.nimi%></h1>
+            </legend>
+            <div class="form-group">
+                <label for="nimi">Nimi:</label>
+                <input type="text" class="form-control" name="nimi" value="<%=foundDrink.nimi%>">
+            </div>
+            <div class="form-group">
+                <label for="valmistaja">Valmistaja</label>
+                <input type="text" class="form-control" name="valmistaja" value="<%=foundDrink.valmistaja%>">
+            </div>
+            <div class="form-group">
+                <label for="tyyppi">Tyyppi:</label>
+                <input type="text" class="form-control" name="tyyppi" value="<%=foundDrink.tyyppi%>">
+            </div>
+            <div class="form-group">
+                <label for="valmistusmaa">valmistusmaa</label>
+                <input type="text" class="form-control" name="valmistusmaa" value="<%=foundDrink.valmistusmaa%>">
+            </div>
+            <div class="form-group">
+                <label for="luonnehdinta">Luonnehdinta</label>
+                <textarea class="form-control" name="luonnehdinta"><%=foundDrink.luonnehdinta%></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="drinkImg">Kuva:</label>
+                <input type="file" accept="image/*" class="form-control" name="drinkImg">
+            </div>
+
+            <button type="submit" class="btn btn-block btn-primary">Lähetä</button>
+        </form>
+        <br>
+        <div class="progress progress-striped active">
+            <div class="progress-bar progress-bar-success" aria-valuenow="" style="width: 0%;">
+                <span class="sr-only">60% Complete</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#updateForm").submit(function(event) {
+        event.preventDefault();
+
+        var formData = new FormData($("form")[0]);
+
+
+        $.ajax({
+            xhr: function() {
+                var xhr = new window.XMLHttpRequest();
+
+                xhr.upload.addEventListener("progress", function(e) {
+                    if (e.lengthComputable) {
+                        $(".progress-bar").css("width", ((e.loaded / e.total) * 100) + "%")
+
+                    }
+                });
+                return xhr;
+            },
+            type: "POST",
+            url: "/juomat/satunnaiset/<%= foundDrink.id %>",
+
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (resData) {
+
+                window.history.go(-1);
+            },
+            error: function (err) {
+                console.log("Nouboi");
+                console.log(err);
+                console.log(err.status);
+            }
+        })
+    });
+
+</script>
+
+<% include ../partials/footer %>

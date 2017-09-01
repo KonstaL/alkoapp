@@ -1,0 +1,153 @@
+<% include ../partials/header.ejs %>
+
+<div class="grid">
+	<div class="container">
+		<div class="row">
+			<h1 id="pageTitle">Konjakit</h1>
+		</div>
+
+		<div class="row">
+			<div class="form-group">
+				<label for="searchInput">Haku</label>
+				<input type="text" name="searchInput" id="searchInput" class="form-control">
+			</div>
+			<div class="form-group">
+				<label for="maxPriceInput">Järjestä</label>
+				<select id="sortBy" class="form-control">
+					<option value="nimi" selected>Nimen mukaan</option>
+					<option value="hinta">Hinnan mukaan</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="maxPriceInput">Nouseva/laskeva</label>
+				<select id="ascDesc" class="form-control">
+					<option value="1" selected>Nouseva</option>
+					<option value="-1">Laskeva</option>
+				</select>
+			</div>
+		</div>
+
+		<div id="ajaxReplace">
+			<h2>VS-Konjakit</h2>
+			<div class="row">
+
+				<%   var lastDrink = "" %>
+					<% foundDrink.forEach(function(juoma) {   %>
+						<%   if(juoma.nimi != lastDrink && ~juoma.nimi.indexOf("VS") && !~juoma.nimi.indexOf("VSOP")) {      %>
+							<% lastDrink = juoma.nimi %>
+								<div class="col-sm-3 col-xs-6 lessWhiteSpace">
+									<div class="juoma-category">
+										<div class="row">
+											<div class="col-xs-12"> <img class="catalog-img" src="https://images.alko.fi/images/t_medium,f_auto/cdn/<%=juoma.numero%>/<%=juoma.nimi.replace(/ /g," - ")%>.jpg"> </div>
+										</div>
+										<div class="row">
+											<div class="col-xs-12 catalog-text-content">
+												<p class="catalog-title">
+													<a href="/juoma/<%=juoma._id%>">
+														<%= juoma.nimi %>
+													</a>
+												</p>
+												<p class="catalog-price"> <span class="text-big"><%= juoma.hinta %></span>e</p>
+												<p class="catalog-proof">
+													<%= juoma['alkoholi-%'] %>% </p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<%    } %>
+									<% });  %>
+			</div>
+			<h2>VSOP-Konjakit</h2>
+			<div class="row">
+				<% foundDrink.forEach(function(juoma) {   %>
+					<%   if(juoma.nimi != lastDrink && ~juoma.nimi.indexOf("VSOP") || ~juoma.nimi.indexOf("V.S.O.P") ) {      %>
+						<% lastDrink = juoma.nimi %>
+							<div class="col-sm-3 col-xs-6 lessWhiteSpace">
+								<div class="juoma-category">
+									<div class="row">
+										<div class="col-xs-12"> <img class="catalog-img" src="https://images.alko.fi/images/t_medium,f_auto/cdn/<%=juoma.numero%>/<%=juoma.nimi.replace(/ /g," - ")%>.jpg"> </div>
+									</div>
+									<div class="row">
+										<div class="col-xs-12 catalog-text-content">
+											<p class="catalog-title">
+												<a href="/oluet/<%=juoma._id%>">
+													<%= juoma.nimi %>
+												</a>
+											</p>
+											<p class="catalog-price"> <span class="text-big"><%= juoma.hinta %></span>e</p>
+											<p class="catalog-proof">
+												<%= juoma['alkoholi-%'] %>% </p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<%    } %>
+								<% });  %>
+			</div>
+			<h2>XO-Konjakit</h2>
+			<div class="row">
+				<% foundDrink.forEach(function(juoma) {   %>
+					<%   if(juoma.nimi != lastDrink && ~juoma.nimi.indexOf("XO") || ~juoma.nimi.indexOf("X.O.") ) {      %>
+						<% lastDrink = juoma.nimi %>
+							<div class="col-sm-3 col-xs-6 lessWhiteSpace">
+								<div class="juoma-category">
+									<div class="row">
+										<div class="col-xs-12"> <img class="catalog-img" src="https://images.alko.fi/images/t_medium,f_auto/cdn/<%=juoma.numero%>/<%=juoma.nimi.replace(/ /g," - ")%>.jpg"> </div>
+									</div>
+									<div class="row">
+										<div class="col-xs-12 catalog-text-content">
+											<p class="catalog-title">
+												<a href="/oluet/<%=juoma._id%>">
+													<%= juoma.nimi %>
+												</a>
+											</p>
+											<p class="catalog-price"> <span class="text-big"><%= juoma.hinta %></span>e</p>
+											<p class="catalog-proof">
+												<%= juoma['alkoholi-%'] %>% </p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<%    } %>
+								<% });  %>
+			</div>
+			<h2>Muut Konjakit</h2>
+			<div class="row">
+				<% foundDrink.forEach(function(juoma) {   %>
+					<%   if(juoma.nimi != lastDrink &&
+							!~juoma.nimi.indexOf("XO") &&
+							!~juoma.nimi.indexOf("X.O.") &&
+							!~juoma.nimi.indexOf("VSOP") &&
+							!~juoma.nimi.indexOf("V.S.O.P") &&
+							!~juoma.nimi.indexOf("VS")) {      %>
+						<% lastDrink = juoma.nimi %>
+							<div class="col-sm-3 col-xs-6 lessWhiteSpace">
+								<div class="juoma-category">
+									<div class="row">
+										<div class="col-xs-12"> <img class="catalog-img" src="https://images.alko.fi/images/t_medium,f_auto/cdn/<%=juoma.numero%>/<%=juoma.nimi.replace(/ /g," - ")%>.jpg"> </div>
+									</div>
+									<div class="row">
+										<div class="col-xs-12 catalog-text-content">
+											<p class="catalog-title">
+												<a href="/oluet/<%=juoma._id%>">
+													<%= juoma.nimi %>
+												</a>
+											</p>
+											<p class="catalog-price"> <span class="text-big"><%= juoma.hinta %></span>e</p>
+											<p class="catalog-proof">
+												<%= juoma['alkoholi-%'] %>% </p>
+										</div>
+									</div>
+								</div>
+							</div>
+				<%    } %>
+				<% });  %>
+			</div>
+		</div>
+		<div class="text-center">
+			<a id="loadMoreButton" class="btn btn-lg btn-success text-center">Lataa lisää</a>
+		</div>
+	</div>
+</div>
+
+<% include ../partials/footer.ejs %>

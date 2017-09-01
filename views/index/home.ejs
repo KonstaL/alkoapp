@@ -1,0 +1,87 @@
+<% include ../partials/header.ejs %>
+
+
+<div class="container-fluid">
+    <div id="carousel" class="row">
+        <div  class="col-xs-12">
+            <div class="container">
+                <div class="jumbotron">
+                    <h1 >AlkoApp</h1>
+                    <p>Vertaile, arvostele ja etsi erilaisia juomia!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid text-center">
+    <div class="row">
+        <div id="hotfix">
+            <div class="col-sm-4 col-xs-4 lessWhiteSpace">
+                <div class="category-item  vcenter">
+                  <a href="/juomat/oluet">Oluet</a>
+                </div>
+            </div>
+            <div class="col-sm-4 col-xs-4 lessWhiteSpace">
+                <div class="category-item  vcenter">
+                    <a href="/juomat/viinit">Viinit</a>
+                </div>
+            </div>
+            <div class="col-sm-4  col-xs-4 lessWhiteSpace">
+                <div class="category-item  vcenter">
+                    <a href="/juomat/viskit">Viskit</a>
+                </div>
+            </div>
+            <div class="col-sm-4  col-xs-4 lessWhiteSpace">
+                <div class="category-item  vcenter">
+                    <a href="/juomat/likoorit">Liköörit</a>
+                </div>
+            </div>
+            <div class="col-sm-4 col-xs-4 lessWhiteSpace">
+                <div class="category-item  vcenter">
+                    <a href="/juomat/konjakit">Konjakit</a>
+                </div>
+            </div>
+            <div class="col-sm-4  col-xs-4 lessWhiteSpace">
+                <div class="category-item vcenter">
+                    <a href="/juomat/rommit">Rommit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <h2>Satunnaisia juomia</h2>
+        </div>
+        <div class="row">
+
+            <% foundDrink.forEach(function(juoma) {   %>
+				<% lastDrink = juoma.nimi %>
+
+            <div class="col-sm-3 col-xs-6 lessWhiteSpace">
+				<div class="juoma-category">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <img class="catalog-img" src="https://images.alko.fi/images/t_medium,f_auto/cdn/<%=juoma.numero%>/<%=juoma.nimi.replace(/ /g,"-")%>.jpg">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 catalog-text-content">
+                                <p class="catalog-title"><a href="/juomat/satunnainen/<%=juoma._id%>"><%= juoma.nimi %></a></p>
+                                <p class="catalog-price"> <span class="text-big"><%= (juoma.hinta/100).toFixed(2) %></span>e</p>
+                                <p class="catalog-proof"><%= juoma['alkoholi-%'] %>% </p>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+			</div>
+		<% });  %>
+		</div>
+    </div>
+</div>
+
+
+
+
+<% include ../partials/footer.ejs %>

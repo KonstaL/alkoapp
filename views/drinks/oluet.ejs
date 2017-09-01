@@ -1,0 +1,41 @@
+<% include ../partials/header.ejs %>
+<div class="grid" id="wrap">
+    <div class="container">
+        <div class="row">
+            <h1 id="pageTitle" data-drink-type="oluet">Oluet</h1>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="searchInput">Haku</label>
+                <input type="text" name="searchInput" id="searchInput" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="maxPriceInput">Järjestä</label>
+                <select id="sortBy" class="form-control">
+                    <option value="nimi" selected>Nimen mukaan</option>
+                    <option value="hinta">Hinnan mukaan</option>
+                    <option value="views">Suosituimmat</option>
+                    <option value="avg">Parhaimmat</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="maxPriceInput">Nouseva/laskeva</label>
+                <select id="ascDesc" class="form-control">
+                    <option value="1" selected>Nouseva</option>
+                    <option value="-1">Laskeva</option>
+                </select>
+            </div>
+        </div>
+        <!--Main content goes here-->
+        <div id="ajaxReplace">
+
+        </div>
+        <div class="text-center">
+            <a id="loadMoreButton" class="btn btn-lg btn-success text-center">Lataa lisää</a>
+        </div>
+    </div>
+</div>
+
+
+<% include ../partials/footer.ejs %>

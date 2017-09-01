@@ -1,0 +1,169 @@
+<% include ../partials/header.ejs %>
+
+
+    <% var avarage = foundDrink.getAvarageRating(); %>
+
+
+<%console.log(avarage)%>
+<div class="container">
+    <div class="grid">
+        <div class="row product-content">
+            <div class="col-sm-6">
+                <h1><%= foundDrink.nimi %></h1>
+                <ul>
+                    <li><p><strong>Valmistaja</strong>: <%= foundDrink.valmistaja %></p></li>
+                    <% if(foundDrink.tyyppi) { %>
+                    <li><p><strong>Tyyppi</strong>: <%= foundDrink.tyyppi%></p></li>
+                    <%}%>
+                    <% if(foundDrink.vuosikerta) { %>
+                    <li><p><strong>Vuosikerta</strong>: <%= foundDrink.vuosikerta %></p></li>
+                    <%}%>
+                    <% if(foundDrink.valmistusmaa) { %>
+                    <li><p><strong>Valmistusmaa</strong>: <%= foundDrink.valmistusmaa%></p></li>
+                    <%}%>
+                    <li><p><strong>Luonnehdinta</strong>: <%= foundDrink.luonnehdinta %></p></li>
+                    <li><p><strong>Vahvuus</strong>: <%= foundDrink["alkoholi-%"] %>%</p></li>
+                    <li>
+                        <table>
+                            <tr>
+                                <th>Pullokoko</th>
+                                <th>Hinta</th>
+                                <th>Litrahinta</th>
+                            </tr>
+
+                            <%otherSizes.forEach(function(otherSize) { %>
+                            <tr>
+                                <td><%= otherSize.pullokoko %></td>
+                                <td><%= (otherSize.hinta/100).toFixed(2)%>e</td>
+                                <td><%= (otherSize.litrahinta/100).toFixed(2)%>e</td>
+                            </tr>
+                            <% });%>
+
+                        </table>
+                    </li>
+                    <li><p><strong>Valikoima</strong>: <%= foundDrink.valikoima %></p></li>
+                    <li>
+                        <select class="rating">
+                            <option value=""></option>
+                            <% for(i=1; i < 6; i++) { %>
+                            <% if (Math.round(foundDrink.rating) == i) { %>
+                                <option value="<%=i%>" selected><%=i%></option>
+                            <% } else { %>
+                                <option value=<%=i%>><%=i%></option>
+                                <%}%>
+                           <% } %>
+
+
+                        </select>
+                    </li>
+                    <li>
+                        <a href="/juomat/satunnainen/<%=foundDrink.id%>/update">Ehdota muokkausta</a>
+                    </li>
+
+
+                </ul>
+
+            </div>
+
+
+            <!--If there is an uploaded picture, use that, else use the alko link-->
+            <div class="col-sm-6 col-xs-12 text-centered">
+                <%if (foundDrink.img) { %>
+                <img class="product-img" src="<%=foundDrink.img%>">
+                <%} else { %>
+                <img class="product-img" src="https://images.alko.fi/images/t_medium,f_auto/cdn/<%=foundDrink.numero%>/<%=foundDrink.nimi.replace(/ /g,"-")%>.jpg">
+            <%}%>
+            </div>
+        </div>
+
+        </div>
+
+        <div class="row comments">
+            <div class="col-md-12 col-xs-12">
+                <h2>Arvostelut</h2>
+            </div>
+
+            <div class="col-md-12 col-xs-12">
+                <% foundDrink.comments.forEach(function(comment) { %>
+
+                <div class="row comment-row">
+                    <div class="col-xs-2" >
+                        <p class="comment-username"><%=comment.author.username%></p>
+                        <a href="https://placeholder.com"><img class="comment-img" src="http://via.placeholder.com/80x80"></a>
+                    </div>
+                    <div class="col-xs-9 col-xs-offset-1">
+                        <p class="comment-text"><%=comment.text%></p>
+
+                        <select class="comment-rating testcomment">
+                            <% for(i=1; i < 6; i++) { %>
+                            <% if (comment.rating == i) { %>
+                            <option value="<%=i%>" selected><%=i%></option>
+                            <% } else { %>
+                            <option value=<%=i%>><%=i%></option>
+                            <%}%>
+                            <% } %>
+
+                        </select>
+                    </div>
+                </div>
+
+                <% })%>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 ">
+                        <form class="text-center" id="comment-form" action="/juomat/*/<%=foundDrink._id%>/comment" method="POST">
+                            <div class="form-group form-inline">
+                                <textarea class="form-control " type="text" cols="50" rows="5" name="comment"></textarea>
+                               <!-- <input type="text" placeholder="kommentti" name="comment" class="form-control">-->
+                            </div>
+                            <div class="form-group">
+                                <select id="new-comment-rating" name="stars">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-success">Kommentoi</button>
+                        </form>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script
+        src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="/js/dropdown.js"></script>
+
+<script src="/js/jquery.barrating.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $(".rating").barrating({
+            theme: 'fontawesome-stars-o',
+            readonly: true,
+            initialRating: <%=avarage || 0.0 %>
+        });
+        $(".comment-rating").barrating({
+            theme: 'fontawesome-stars-o',
+            readonly: true
+        });
+        //$("#drink-rating").barrating("set", 4);
+        $("#new-comment-rating").barrating({
+            theme: 'fontawesome-stars-o',
+            readonly: false,
+            initialRating: 0.5
+        });
+    });
+</script>
+
+<%console.log("FoundDrink avarage rating " + foundDrink.getAvarageRating())%>
+
+<% include ../partials/productFooter.ejs %>
+
