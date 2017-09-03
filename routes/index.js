@@ -5,7 +5,7 @@ var express         = require("express"),
     flash           = require("connect-flash"),
     middleware      = require("../middleware"),
     Juoma           = require("../models/juoma"),
-    User           = require("../models/user");
+    User            = require("../models/user");
 
 //GET homepage
 router.get("/", function(req, res) {
@@ -75,30 +75,7 @@ router.get("/suggestions", middleware.isAdmin, function (req, res) {
 
 
 //GET top
-/*
 router.get("/top", function (req, res) {
-    Juoma.aggregate([
-        {
-            //Adds the rating field which is a avarage of the ratings
-            $addFields: {
-                rating: {$divide: ["$totalScore", "$timesRated"] || 1} // calculated field
-            }
-        }
-    ]).sort({rating: -1})
-        .limit(12)
-        .exec(
-        function (err, bestDrinks) {
-            Juoma.find().sort({views: -1}).limit(12).exec(function(err, viewedDrinks) {
-                res.render("index/top", {bestDrinks: bestDrinks, viewedDrinks: viewedDrinks});
-            });
-        }
-    );
-});
-*/
-
-//GET top
-router.get("/top", function (req, res) {
-    //TODO Error handling
     function add(data) {
         console.log(data);
     }
@@ -114,14 +91,22 @@ router.get("/top", function (req, res) {
             {$limit: 12},
         ]
     ).exec(function(err, bestDrinks) {
-            Juoma.find().sort({views: -1}).limit(12).exec(function(err, viewedDrinks) {
-                res.render("index/top", {bestDrinks: bestDrinks, viewedDrinks: viewedDrinks});
+        if (err) {
+            console.log(err);
+            req.flash("error", "Jotain meni pieleen, ota yhteyttä ylläpitoon mikäli ongelma jatkuu");
+            res.redirect("/");
+        } else {
+            Juoma.find().sort({views: -1}).limit(12).exec(function (err, viewedDrinks) {
+                if(err) {
+                    req.flash("error", "Jotain meni pieleen suosituimpia juomia hakiessa");
+                    res.render("/");
+                } else {
+                    res.render("index/top", {bestDrinks: bestDrinks, viewedDrinks: viewedDrinks});
+                }
             });
-        })
-
+        }
+    });
 });
-
-
 
 
 //404-site
