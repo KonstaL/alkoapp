@@ -50,7 +50,7 @@ router.get("/register", function (req, res) {
 
 //POST register
 router.post("/register", function (req, res) {
-    var newUser = new User({username: req.body.username});
+    var newUser = new User({username: req.body.username, email: req.body.email});
     User.register(newUser, req.body.password, function (err, user) {
         if(err) {
             req.flash("error", err.message);
@@ -128,6 +128,9 @@ router.post("/forgot", function(req, res) {
         },
         function(token, done) {
             User.findOne({ email: req.body.email }, function(err, user) {
+                console.log("error: " + err);
+                console.log("body email: " + req.body.email);
+                console.log(user);
                 if (!user) {
                     req.flash('error', 'No account with that email address exists.');
                     return res.redirect('/forgot');
