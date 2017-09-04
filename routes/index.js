@@ -128,20 +128,20 @@ router.post("/forgot", function(req, res) {
         },
         function(token, done) {
             User.findOne({ email: req.body.email }, function(err, user) {
-                console.log("error: " + err);
                 console.log("body email: " + req.body.email);
                 console.log(user);
                 if (!user) {
-                    req.flash('error', 'No account with that email address exists.');
+                    req.flash('error', 'Sähköpostilla ei löytynyt käyttäjää');
                     return res.redirect('/forgot');
                 }
-                user.test = "This is a test message";
+                user.test = "testMessage";
                 user.resetPasswordToken = token;
                 user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
-                user.save().then(function() {
-                    console.log("jutut tallennettu");
+                user.save(function(err) {
+                    done(err, token, user);
                 });
+                console.log(user);
             });
         },
         function(token, user, done) {
@@ -159,14 +159,15 @@ router.post("/forgot", function(req, res) {
                 to: user.email,
                 from: 'Support@alkoapp.com',
                 subject: 'Alkoapp salasanan nollaus',
-                text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-                'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                text: 'Vastaanotat tämän sähköpostin koska sinä (tai joku muu) on pyytänyt salasanan vaihtoa ' +
+                'käyttäjätilillesi\n\n' +
+                'Klikkaa linkkiä vaihtaaksesi salasanasi\n\n' +
                 'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-                'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+                'Mikäli et pyytänyt salasanan vaihtoa itse, voit jättää tämän huomiotta\n'
             };
             smtpTransport.sendMail(mailOptions, function(err) {
                 console.log('mail sent');
-                req.flash('success', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+                req.flash('success', 'Salasanan vaihto-ohjeet lähetetty osoitteeseen' + user.email);
                 done(err, 'done');
             });
         }
@@ -183,7 +184,7 @@ router.post("/forgot", function(req, res) {
 router.get('/reset/:token', function(req, res) {
     User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
         if (!user) {
-            req.flash('error', 'Password reset token is invalid or has expired.');
+            req.flash('error', 'Salasanan nollaamislinkki on viallinen tai vanhentunut!');
             return res.redirect('/forgot');
         }
         res.render('index/reset', {token: req.params.token});
@@ -195,7 +196,7 @@ router.post('/reset/:token', function(req, res) {
         function(done) {
             User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
                 if (!user) {
-                    req.flash('error', 'Password reset token is invalid or has expired.');
+                    req.flash('error', 'Salasanan nollaamislinkki on viallinen tai vanhentunut!');
                     return res.redirect('back');
                 }
                 if(req.body.password === req.body.confirm) {
@@ -230,7 +231,7 @@ router.post('/reset/:token', function(req, res) {
                 from: 'support@alkoapp.com',
                 subject: 'Salasanasi on vaihdettu',
                 text: 'Hei,\n\n' +
-                'Käyttäjäsi' + user.email + ' salasana on vaihdettu.\n\nTerveisin, alkoapp'
+                'Käyttäjäsi' + user.email + ' salasana on vaihdettu.\n\nTerveisin, Alkoapp'
             };
             smtpTransport.sendMail(mailOptions, function(err) {
                 req.flash('success', 'Salasanasi on vaihdettu!');
@@ -238,7 +239,7 @@ router.post('/reset/:token', function(req, res) {
             });
         }
     ], function(err) {
-        res.redirect('/campgrounds');
+        res.redirect('/');
     });
 });
 
