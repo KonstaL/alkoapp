@@ -139,7 +139,9 @@ router.post("/forgot", function(req, res) {
                 user.resetPasswordToken = token;
                 user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
-                user.save();
+                user.save(function(err) {
+                    console.log(err);
+                });
             });
         },
         function(token, user, done) {
