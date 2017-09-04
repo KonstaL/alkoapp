@@ -1,8 +1,5 @@
 var express         = require('express'),
     app             = express(),
-    Excel           = require("exceljs"),
-    //excel2Json      = require("node-excel-to-json"),
-    //node_xj         = require("xls-to-json-lc"),
     bodyParser      = require("body-parser"),
     User            = require("./models/user"),
     passport        = require("passport"),
@@ -16,9 +13,7 @@ var express         = require('express'),
     if(process.env.NODE_ENV === "production") {
         var secretKeys = {
             databaseKey:        process.env.ALKO_DB_KEY,
-            sessionSecret:      process.env.SESSION_SECRET,
-            accessKeyId:        process.env.S3_KEY,
-            secretAccessKey:    process.env.S3_SECRET_KEY
+            sessionSecret:      process.env.SESSION_SECRET
 
         };
     } else {
@@ -60,19 +55,11 @@ app.use(function(req, res, next) {
     next();
 });
 
-
-
-
-
-//TODO: Paremmat routet, kuvien lisääminen
-
-
 //Use routes
 app.use("/juomat", juomaRoutes);
 app.use("/", indexRoutes);
 
-
-
+//Start web-server
 app.listen(process.env.PORT || 8080, process.env.IP, function() {
     console.log("Server started!");
 });

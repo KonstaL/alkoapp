@@ -7,7 +7,7 @@ middlewareObj.isLoggedIn = function(req, res, next) {
     if(req.isAuthenticated()) {
         console.log("on autentikoitunut");
         if(req.user.isAdmin) {
-            console.log("on admin");
+            console.log("Is an Admin");
             return next();
         } else {
             return next();
