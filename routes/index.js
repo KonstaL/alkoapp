@@ -161,13 +161,14 @@ router.post("/forgot", function(req, res) {
                 subject: 'Alkoapp salasanan nollaus',
                 text: 'Vastaanotat tämän sähköpostin koska sinä (tai joku muu) on pyytänyt salasanan vaihtoa ' +
                 'käyttäjätilillesi\n\n' +
-                'Klikkaa linkkiä vaihtaaksesi salasanasi\n\n' +
+                'Klikkaa linkkiä vaihtaaksesi salasanasi:\n' +
                 'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-                'Mikäli et pyytänyt salasanan vaihtoa itse, voit jättää tämän huomiotta\n'
+                'Mikäli et pyytänyt salasanan vaihtoa itse, voit jättää tämän huomiotta\n' +
+                'Terveisin, Alkoapp'
             };
             smtpTransport.sendMail(mailOptions, function(err) {
                 console.log('mail sent');
-                req.flash('success', 'Salasanan vaihto-ohjeet lähetetty osoitteeseen' + user.email);
+                req.flash('success', 'Salasanan vaihto-ohjeet lähetetty osoitteeseen: ' + user.email);
                 done(err, 'done');
             });
         }
