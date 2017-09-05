@@ -22,6 +22,15 @@ router.get("/", function(req, res) {
     res.render("drinks/juomat");
 });
 
+router.get("/haku", function(req, res) {
+    if(req.xhr) {
+        var type = JSON.parse('{"$exists": true }');
+        ajaxUpdate(req, res, type);
+    } else {
+        res.render("drinks/drinkTypeTemplate", {getUrl: "haku", drinkCategory: "Haku"});
+    }
+});
+
 router.get("/viskit", function(req, res) {
     if(req.xhr) {
         var type = "viskit";
